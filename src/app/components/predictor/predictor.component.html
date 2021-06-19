@@ -1,0 +1,103 @@
+<div class="main-container">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Predictor</a>
+      <div>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#inicio">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#predictor">K-Means</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="inicio-container" id="inicio">
+    <div class="two-columns">
+      <div class="presentation-container">
+        <h2>Predictor de sueldos</h2>
+        <h4>Clasificación y Predicción del sueldo que obtendrá una persona usando el algoritmo K-Means</h4>
+        <br />
+        <br />
+        <p>Proyecto para el curso de Programación Concurrente y Distribuida</p>
+      </div>
+      <div class="action-container">
+        <a type="button" class="btn btn-primary" href="#predictor">Iniciar</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="predictor-container" id="predictor">
+    <div class="center-container">
+      <h2>Complete el formulario</h2>
+    </div>
+    <br/>
+    <form (ngSubmit)="predict(predictorForm)" #predictorForm="ngForm">
+      <div class="form-two-columns">
+        <div class="first-group">
+          <div class="input-group-custom">
+            <p>¿Cuál es su edad?</p>
+            <input type="number" class="form-control" placeholder="Edad" name="Edad" [(ngModel)]="variables.edad" #Edad="ngModel"  aria-label="Edad"/>
+          </div>
+          <br />
+          <div class="input-group-custom">
+            <p>¿Cuál es su nivel educativo?</p>
+            <select class="form-select form-select-sm" name="Nivel_educativo" [(ngModel)]="variables.nivel_educativo" aria-label="Nivel Educativo">
+              <option disabled>Nivel Educativo</option>
+              <option *ngFor="let nivel of optsEducacion" [value]="nivel.id">{{ nivel.value }}</option>
+            </select>
+          </div>
+          <br />
+          <div class="input-group-custom">
+            <p>¿Cuál es su ocupación principal?</p>
+            <select class="form-select form-select-sm" name="Ocupacion" [(ngModel)]="variables.ocupacion" aria-label="Ocupacion">
+              <option disabled>Ocupación</option>
+              <option *ngFor="let ocup of optsOcupacion" [value]="ocup.id">{{ ocup.value }}</option> 
+            </select>
+          </div>
+        </div>
+  
+        <div class="first-group">
+          <br />
+          <div class="input-group-custom">
+            <p>¿En qué entidad desea trabajar?</p>
+            <select class="form-select form-select-sm" name="Entidad" [(ngModel)]="variables.entidad" aria-label="Nivel Educativo">
+              <option disabled>Entidad</option>
+              <option *ngFor="let ent of optsEntidad" [value]="ent.id">{{ ent.value }}</option>
+            </select>
+          </div>
+          <br />
+          <div class="input-group-custom">
+            <p>¿Cuál es el tamaño de la entidad o empresa?</p>
+            <div class="check-group">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="Tamanio_entidad" id="radio1" [value]="1" [(ngModel)]="variables.tamanio_entidad">
+                <label class="form-check-label" for="radio1">
+                  Menos de 100 personas
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="Tamanio_entidad" id="radio2" checked [value]="2" [(ngModel)]="variables.tamanio_entidad">
+                <label class="form-check-label" for="radio2">
+                  De 100 y más personas
+                </label>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div class="center-container">
+        <button type="submit" class="btn btn-primary">Predecir</button>
+      </div>
+    </form>
+    
+    <div class="respuesta">
+      <h2 *ngIf="tipoIngreso != null">
+        Su sueldo será de {{tipoIngreso}} soles
+      </h2>
+    </div>
+  </section>
+</div>
